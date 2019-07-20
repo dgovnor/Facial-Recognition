@@ -12,10 +12,8 @@ const app = express();
 const db = Knex({
   client: "pg",
   connection: {
-    host: "127.0.0.1",
-    user: "postgres",
-    password: "password",
-    database: "image-app"
+    connectionString: process.env.DATABASE_URL,
+    ssl: true
   }
 });
 
@@ -39,7 +37,7 @@ app.get("/profile/:id", (req, res) => profile(req, res, db));
 app.put("/image", (req, res) => image(req, res, db));
 app.post("/imageurl", (req, res) => imageUrl(req, res));
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`app is running on port ${PORT}`);
 });
